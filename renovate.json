@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "timezone": "Asia/Jakarta",
+  "schedule": ["after 10am on Monday", "before 1pm on Monday"]
 }
