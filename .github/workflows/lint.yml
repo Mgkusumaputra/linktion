@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   lint:
-    name: ⬣ ESLint, ʦ TypeScript, and 💅 Prettier
+    name: Code Quality Checker
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
@@ -32,10 +32,10 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: 🔬 Lint
-        run: pnpm run lint:strict
+        run: pnpm lint:strict
 
       - name: 🔎 Type check
-        run: pnpm run typecheck
+        run: pnpm typecheck
 
       - name: 💅 Prettier check
-        run: pnpm run format:check
+        run: pnpm prettier:check
