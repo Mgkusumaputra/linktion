@@ -1,18 +1,8 @@
-parent=$(/bin/ps -o ppid -p $PPID | tail -1)
-if [ -n "$parent" ]; then
-    amended=$(/bin/ps -o command -p $parent | grep -e '--amend')
-    if [ -n "$amended" ]; then
-        exit 0
-    fi  
-fi
-
-# Check if COMMIT_EDITMSG is just a default message
-if grep -q "# Please enter the commit message" ".git/COMMIT_EDITMSG"; then
-  # Remove the default message
-  echo "" > .git/COMMIT_EDITMSG
-  # Run commitizen
-  exec < /dev/tty && npx cz --hook || true
-else
-  # Use the provided commit message
-  exit 0
-fi
+  # Only run commitizen if no commit message was already provided.
+  if [ -z "${2-}" ]; then
+    export CZ_TYPE="${CZ_TYPE:-fix}"
+    export CZ_MAX_HEADER_WIDTH=$COMMITLINT_MAX_WIDTH
+    export CZ_MAX_LINE_WIDTH=$CZ_MAX_HEADER_WIDTH
+    # By default git hooks are not interactive. exec < /dev/tty allows a users terminal to interact with commitizen.
+    exec < /dev/tty && "$(dirname "$0")/git-cz.js" --hook
+  fi
