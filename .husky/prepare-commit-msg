@@ -1,1 +1,18 @@
-pnpx husky set .husky/prepare-commit-msg 'exec < /dev/tty && npx cz --hook || true'
+parent=$(/bin/ps -o ppid -p $PPID | tail -1)
+if [ -n "$parent" ]; then
+    amended=$(/bin/ps -o command -p $parent | grep -e '--amend')
+    if [ -n "$amended" ]; then
+        exit 0
+    fi  
+fi
+
+# Check if COMMIT_EDITMSG is just a default message
+if grep -q "# Please enter the commit message" ".git/COMMIT_EDITMSG"; then
+  # Remove the default message
+  echo "" > .git/COMMIT_EDITMSG
+  # Run commitizen
+  exec < /dev/tty && npx cz --hook || true
+else
+  # Use the provided commit message
+  exit 0
+fi
