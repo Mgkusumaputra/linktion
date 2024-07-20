@@ -1,3 +1,1 @@
-. "$(dirname "$0")/h"
-
-npx husky add .husky/prepare-commit-msg 'exec < /dev/tty && npx cz --hook || true'
+pnpx husky set .husky/prepare-commit-msg 'exec < /dev/tty && npx cz --hook || true'

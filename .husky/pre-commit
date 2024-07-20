@@ -1,3 +1,1 @@
-. "$(dirname "$0")/h"
-
-npx lint-staged
+pnpm lint-staged
