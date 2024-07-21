@@ -11,11 +11,11 @@ export default function TreeButton({ href, title }: TreeButtonProps) {
     <Link
       href={href}
       className={clsx(
-        'group flex w-full items-center justify-center rounded-xl border border-[#F2F3F4] px-2 py-2',
-        'transition-colors hover:bg-[#F2F3F4] hover:shadow-xl',
+        'group flex w-full items-center justify-center rounded-xl border border-typography-primary px-2 py-2',
+        'transition-colors hover:bg-typography-primary hover:shadow-xl',
       )}
     >
-      <p className='text-lg font-medium text-[#F2F3F4] group-hover:text-[#2C3E50]'>
+      <p className='text-lg font-medium text-typography-primary group-hover:text-secondary'>
         {title}
       </p>
     </Link>

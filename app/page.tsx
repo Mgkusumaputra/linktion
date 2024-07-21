@@ -24,8 +24,10 @@ export default function Home() {
           className='rounded-xl'
         />
         <div className='flex flex-col gap-2'>
-          <h1 className='text-xl font-semibold text-[#F2F3F4]'>@Username</h1>
-          <p className='text-xs font-normal text-[#E5E7E9]'>
+          <h1 className='text-xl font-semibold text-typography-primary'>
+            @Username
+          </h1>
+          <p className='text-xs font-normal text-typography-secondary'>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor
             consectetur dictum.
           </p>
