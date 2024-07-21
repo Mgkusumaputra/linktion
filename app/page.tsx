@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 
 import { getObjectByConfigValue } from '@/utils/config';
+import { removeUrlSpace } from '@/utils/url';
 
 import FooterButton from '../components/footerButton';
 import TreeButton from '../components/treeButton';
@@ -60,7 +61,7 @@ export default async function Home() {
         {linktreeContent.map((data, index) => (
           <TreeButton
             key={index}
-            href={data.redirect}
+            href={`/link/${removeUrlSpace(data.display)}`}
             title={data.display}
             icon={data.icon}
           />
