@@ -58,7 +58,12 @@ export default async function Home() {
       {/* Linktree Content Section */}
       <div className='mt-9 flex w-full flex-col gap-3'>
         {linktreeContent.map((data, index) => (
-          <TreeButton key={index} href={data.redirect} title={data.display} />
+          <TreeButton
+            key={index}
+            href={data.redirect}
+            title={data.display}
+            icon={data.icon}
+          />
         ))}
       </div>
       {/* Footer Attribution */}
