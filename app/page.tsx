@@ -1,42 +1,69 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 
-import FooterButton from './components/footerButton';
-import TreeButton from './components/treeButton';
+import { getObjectByConfigValue } from '@/utils/config';
 
-const Linktree_Dummy_Data = [
-  { title: 'Link 1', href: '/link-1' },
-  { title: 'Link 2', href: '/link-2' },
-  { title: 'Link 3', href: '/link-3' },
-  { title: 'Link 4', href: '/link-4' },
-  { title: 'Link 5', href: '/link-5' },
-];
+import FooterButton from '../components/footerButton';
+import TreeButton from '../components/treeButton';
+import { getConfigData, getSocialTree } from '../lib/notion';
 
-export default function Home() {
+async function fetchLinktreeData() {
+  const res = getSocialTree();
+  return res;
+}
+async function fetchConfigData() {
+  const res = getConfigData();
+  return res;
+}
+
+export default async function Home() {
+  const linktreeContent = await fetchLinktreeData();
+  const configContent = await fetchConfigData();
+
+  const usernameConfig = getObjectByConfigValue(configContent, 'Username');
+  const descriptionConfig = getObjectByConfigValue(
+    configContent,
+    'Description',
+  );
+  const iconConfig = getObjectByConfigValue(configContent, 'Icon');
+  const isIconConfigAvalable = iconConfig?.value.trim() !== '';
+
   return (
     <div className='flex flex-col items-center justify-center px-10'>
       {/* Upper Content Section */}
-      <div className='mt-16 flex flex-col items-center gap-7 text-center'>
-        <Image
-          width={64}
-          height={64}
-          src='/Memoji 1.png'
-          alt='Profile Icon'
-          className='rounded-xl'
-        />
+      <div
+        className={clsx(
+          'flex flex-col items-center gap-7 text-center',
+          iconConfig ? 'mt-16' : 'mt-[156px]',
+        )}
+      >
+        {isIconConfigAvalable && (
+          <Image
+            width={64}
+            height={64}
+            src={iconConfig?.value as string}
+            alt='Profile Icon'
+            className='rounded-xl'
+          />
+        )}
         <div className='flex flex-col gap-2'>
           <h1 className='text-xl font-semibold text-typography-primary'>
-            @Username
+            {usernameConfig?.value}
           </h1>
           <p className='text-xs font-normal text-typography-secondary'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut auctor
-            consectetur dictum.
+            {descriptionConfig?.value}
           </p>
         </div>
       </div>
       {/* Linktree Content Section */}
       <div className='mt-9 flex w-full flex-col gap-3'>
-        {Linktree_Dummy_Data.map((data, index) => (
-          <TreeButton key={index} href={data.href} title={data.title} />
+        {linktreeContent.map((data, index) => (
+          <TreeButton
+            key={index}
+            href={data.redirect}
+            title={data.display}
+            icon={data.icon}
+          />
         ))}
       </div>
       {/* Footer Attribution */}
