@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import FooterButton from './components/footerButton';
 import TreeButton from './components/treeButton';
+import { getSocialTree } from './lib/notion';
 
 const Linktree_Dummy_Data = [
   { title: 'Link 1', href: '/link-1' },
@@ -11,7 +12,14 @@ const Linktree_Dummy_Data = [
   { title: 'Link 5', href: '/link-5' },
 ];
 
-export default function Home() {
+async function fetchLinktreeData() {
+  const res = getSocialTree();
+  return res;
+}
+
+export default async function Home() {
+  const linktreeContent = await fetchLinktreeData();
+
   return (
     <div className='flex flex-col items-center justify-center px-10'>
       {/* Upper Content Section */}
@@ -35,8 +43,8 @@ export default function Home() {
       </div>
       {/* Linktree Content Section */}
       <div className='mt-9 flex w-full flex-col gap-3'>
-        {Linktree_Dummy_Data.map((data, index) => (
-          <TreeButton key={index} href={data.href} title={data.title} />
+        {linktreeContent.map((data, index) => (
+          <TreeButton key={index} href={data.redirect} title={data.display} />
         ))}
       </div>
       {/* Footer Attribution */}
