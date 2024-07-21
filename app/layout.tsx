@@ -16,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className='theme-cool-blue'>
       <body
-        className={`${plusJakartaSans.className} flex h-screen justify-center bg-gradient-to-br from-[#2C3E50] to-[#BDC3C7]`}
+        className={`${plusJakartaSans.className} flex h-screen justify-center bg-gradient-to-br from-secondary to-primary`}
       >
         <main className='w-full max-w-screen-sm'>{children}</main>
       </body>
