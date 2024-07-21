@@ -3,7 +3,6 @@ import { Client } from '@notionhq/client';
 
 import { ConfigResult, PageIcon, TreeResult } from '../types/notion';
 
-// eslint-disable-next-line unused-imports/no-unused-vars
 const NOTION_INTEGRATION_SECRET =
   process.env.NEXT_PUBLIC_NOTION_INTEGRATION_SECRET;
 const NOTION_CONFIG_DATABASE_ID =
@@ -71,7 +70,51 @@ export const getSocialTree = async () => {
     }))
     .sort((a, b) => a.order - b.order);
 
-  //   console.log(`Tree Data: ${treeData}`);
-
   return treeData;
+};
+
+export const getRedirect = async (slug: string) => {
+  if (!NOTION_TREE_DATABASE_ID) {
+    throw new Error('NEXT_PUBLIC_NOTION_TREE_DATABASE_ID env is not defined');
+  }
+
+  const response = await notion.databases.query({
+    database_id: NOTION_TREE_DATABASE_ID,
+    filter: {
+      property: 'display',
+      title: { equals: slug },
+    },
+  });
+
+  const dataResults = response.results[0] as unknown as TreeResult;
+
+  const redirectUrl: Tree = {
+    id: dataResults.id,
+    display: dataResults.properties.display.title[0]?.plain_text,
+    redirect: dataResults.properties.redirect.rich_text[0]?.plain_text ?? '',
+    click: dataResults.properties.click.number,
+    order: dataResults.properties.order.number,
+    icon: dataResults.icon,
+  };
+
+  return redirectUrl;
+};
+
+export const incrementLinkCount = async (linktree: Tree) => {
+  if (!NOTION_TREE_DATABASE_ID) {
+    throw new Error('NEXT_PUBLIC_NOTION_TREE_DATABASE_ID env is not defined');
+  }
+
+  if (!linktree.id) {
+    throw new Error('page ID is not found');
+  }
+
+  await notion.pages.update({
+    page_id: linktree.id,
+    properties: {
+      click: {
+        number: Number(linktree.click + 1),
+      },
+    },
+  });
 };
