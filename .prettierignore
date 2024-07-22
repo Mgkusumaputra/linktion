@@ -35,7 +35,8 @@ yarn-error.log*
 # vercel
 .vercel
 
-# changelog
+# markdown
 CHANGELOG.md
+README.md
 
 pnpm-lock.yaml
