@@ -11,7 +11,7 @@
     "prettier:format": "prettier --write \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "prettier:check": "prettier --check \"**/*.{ts,tsx,js,md,mdx,css,yaml}\"",
     "lint:fix": "eslint app --fix && pnpm format",
-    "lint:strict": "eslint --max-warnings=0 app",
+    "lint:strict": "eslint --max-warnings=0",
     "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
