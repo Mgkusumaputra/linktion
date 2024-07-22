@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     'self-hosted, open-source link-in-bio website with Notion integration.',
   openGraph: {
-    title: 'Linktion',
+    title: 'Linktion - Linktree Built With Notion',
     description:
       'self-hosted, open-source link-in-bio website with Notion integration.',
     url: 'https://linktion.mgkusumaputra.me',
