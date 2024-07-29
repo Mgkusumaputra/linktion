@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Client } from '@notionhq/client';
 
 import { ConfigResult, PageIcon, TreeResult } from '../types/notion';
