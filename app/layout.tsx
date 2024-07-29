@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import './globals.css';
 
+import { UmamiScript } from '@/components/umamiScript';
+
 import { getObjectByConfigValue } from '@/utils/config';
 
 import { getConfigData } from '../lib/notion';
@@ -47,6 +49,7 @@ export default async function RootLayout({
         className={`${plusJakartaSans.className} flex h-screen justify-center bg-gradient-to-br from-secondary to-primary`}
       >
         <main className='w-full max-w-screen-sm'>{children}</main>
+        <UmamiScript />
       </body>
     </html>
   );
