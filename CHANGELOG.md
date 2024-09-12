@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Mgkusumaputra/linktion/compare/v1.0.0...v1.1.0) (2024-09-03)
+
+
+### Features
+
+* umami integration ([28bba22](https://github.com/Mgkusumaputra/linktion/commit/28bba228d6aaba3c7579b34903638a2076c57bad))
+
 ## 1.0.0 (2024-07-22)
 
 
